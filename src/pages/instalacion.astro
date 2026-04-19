@@ -1,0 +1,329 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Instalacion">
+  <header class="page-header">
+    <div class="header-content">
+      <span class="subtitle-tag">&#9658; guia de instalacion</span>
+      <h1>SETUP COMPLETO<br/>NDS & GBA</h1>
+      <p class="header-desc">Instala tu emulador, carga las ROMs y configura el entorno para jugar Pokémon en modo Soul Link (Sinnoh, Kanto o Hoenn).</p>
+    </div>
+  </header>
+
+  <div class="platform-tabs">
+    <button class="plat-btn active" data-target="pc">💻 PC</button>
+    <button class="plat-btn" data-target="android">📱 Android</button>
+    <button class="plat-btn" data-target="ios">🍎 iOS</button>
+    <button class="plat-btn" data-target="roms">💾 ROMs & BIOS</button>
+  </div>
+
+  <div class="main-content">
+
+    <div id="plat-pc" class="platform-section active">
+      <section>
+        <div class="section-label">NDS</div>
+        <h2>Nintendo DS (MelonDS)</h2>
+        <div class="note-block">
+          <strong>¿Por qué MelonDS?</strong> Es actualmente el mejor emulador para jugar NDS en multijugador, permitiendo usar el "Wireless" local de la consola original para intercambiar y batallar.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Descargar MelonDS</h4>
+              <p>Ve a la página oficial y descarga la última versión para Windows, Mac o Linux.</p>
+              <a href="https://melonds.kuribo64.net/downloads.php" target="_blank" class="btn-primary" style="margin-top:10px; display:inline-flex">&#8681; Descargar MelonDS</a>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Cargar las Roms</h4>
+              <p>La Nintendo DS <strong>necesita cargar las Roms</strong> para funcionar: <code>Juego.nds</code>. Ve a <strong>File → Open ROM</strong> y selecciona la ROM donde la hayas guardado.</p>
+              <p> <strong>Nota:</strong>  para descargar las ROMS <code>Juego.nds</code>. Ve a <strong>ROMs & BIOS</strong> y Descargalo donde desees.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">3</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Configurar las BIOS (SOLO SI NO USAS MELONDS)</h4>
+              <p>La Nintendo DS <strong>necesita 3 archivos de sistema</strong> para funcionar: <code>bios7.bin</code>, <code>bios9.bin</code> y <code>firmware.bin</code>. Ve a <strong>Config → Emu settings → DS-mode</strong> y selecciona la ruta donde guardaste estos archivos.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">4</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Multijugador Local (Intercambios OPCIONAL)</h4>
+              <p>Abre dos ventanas de MelonDS. Ve a <strong>Config → Wifi settings</strong> y asegúrate de que "Bind to any address" esté marcado. ¡Entren a la Sala Unión en el juego al mismo tiempo!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">GBA</div>
+        <h2>Game Boy Advance (mGBA)</h2>
+        <div class="note-block" style="border-left-color: var(--green);">
+          <strong>El Rey de GBA:</strong> mGBA es el emulador más preciso y moderno. Tiene una función nativa de "Nueva ventana multijugador" ideal para tradear en Soul Link.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Descargar mGBA</h4>
+              <p>Descarga la versión estable más reciente desde su web oficial.</p>
+              <a href="https://mgba.io/downloads.html" target="_blank" class="btn-primary" style="margin-top:10px; display:inline-flex">&#8681; Descargar mGBA</a>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Cargar ROM y Multijugador</h4>
+              <p>En GBA <strong>no necesitas BIOS</strong>, el emulador ya las trae. Solo abre tu ROM (.gba). Para intercambiar, ve a <strong>File → New multiplayer window</strong> y cargará una segunda pantalla conectada por Cable Link virtual.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="plat-android" class="platform-section">
+      <section>
+        <div class="section-label">NDS</div>
+        <h2>Nintendo DS (DraStic / MelonDS)</h2>
+        <div class="note-block">
+          <strong>¡Noticia!</strong> DraStic, el emulador más rápido de NDS, ahora es 100% gratis. Si necesitan hacer intercambios reales (multijugador), MelonDS para Android es mejor opción.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Instalar el Emulador</h4>
+              <p>Descarga DraStic (mejor rendimiento) o MelonDS (soporte Wi-Fi) desde Google Play o Github.</p>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+                <a href="https://github.com/R-YaTian/DraStic_rev_i18n/releases" target="_blank" class="btn-primary">&#8681; DraStic (Gratis)</a>
+                <a href="https://github.com/rafaelvcaetano/melonDS-android/releases" target="_blank" class="btn-secondary">&#8681; MelonDS Android</a>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Archivos BIOS</h4>
+              <p>Podrías necesitar los archivos <code>bios7.bin</code>, <code>bios9.bin</code> y <code>firmware.bin</code> según el emulador que uses. Guárdalos en tu teléfono.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">3</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Cargar las Roms</h4>
+              <p>La Nintendo DS <strong>necesita cargar las Roms</strong> para funcionar: <code>Juego.nds</code>. Ve a <strong>File → Open ROM</strong> y selecciona la ROM donde la hayas guardado.</p>
+              <p> <strong>Nota:</strong>  para descargar las ROMS <code>Juego.nds</code>. Ve a <strong>ROMs & BIOS</strong> y Descargalo donde desees.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">GBA</div>
+        <h2>Game Boy Advance (My Boy!)</h2>
+        <div class="note-block" style="border-left-color: var(--green);">
+          <strong>Magia Inalámbrica:</strong> My Boy! sigue siendo el estándar en Android porque permite emular el Cable Link conectando dos celulares por Bluetooth o Wi-Fi.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Instalar My Boy!</h4>
+              <p>Se encuentra disponible en la Google Play Store. Asegúrate de que ambos jugadores tengan la misma versión de la app.</p>
+              <a href="https://play.google.com/store/apps/details?id=com.fastemulator.gba" target="_blank" class="btn-primary" style="margin-top:10px; display:inline-flex">&#8681; Play Store - My Boy!</a>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Intercambiar por Link Remoto</h4>
+              <p>Abre el juego. En el menú del emulador, selecciona <strong>Link Remote</strong>. Un jugador debe seleccionar "Wi-Fi Server" y el otro "Wi-Fi Client" para conectarse y entrar al Centro Pokémon.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="plat-ios" class="platform-section">
+      <section>
+        <div class="section-label">NDS & GBA</div>
+        <h2>Instalar Delta en iOS/iPhone</h2>
+        <div class="note-block">
+          <strong>Todo en uno:</strong> Delta es el emulador oficial de Apple. Soporta nativamente Game Boy Advance y Nintendo DS en la misma app.
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Instalar Delta</h4>
+              <p>Descárgalo gratis desde el App Store oficial. No requiere Jailbreak.</p>
+              <a href="https://apps.apple.com/app/delta-game-emulator/id1048524688" target="_blank" class="btn-primary" style="margin-top:10px; display:inline-flex">&#8681; App Store — Delta</a>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Configurar BIOS (Solo NDS)</h4>
+              <p>Para GBA, Delta funciona de inmediato. Para <strong>Nintendo DS</strong>, ve a los ajustes de Delta (engranaje) → Core Settings (Nintendo DS) → y carga los archivos <code>bios7.bin</code>, <code>bios9.bin</code> y <code>firmware.bin</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num-wrap"><div class="step-num">3</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <h4>Importar la ROM</h4>
+              <p>Abre tu archivo .nds o .gba desde la app Archivos de iOS y elige "Compartir con Delta".</p>
+            </div>
+          </div>
+        </div>
+        <div class="warn-block">
+          <strong>Aviso Multijugador:</strong> Delta está trabajando en soporte multijugador, pero actualmente es inestable para intercambios. Si necesitan tradear, recomendamos exportar la partida a un PC temporalmente.
+        </div>
+      </section>
+    </div>
+
+    <div id="plat-roms" class="platform-section">
+      <section>
+        <div class="section-label">RECURSOS</div>
+        <h2>Archivos Necesarios</h2>
+        <p>Asegúrate de descargar la misma versión y el mismo idioma del juego que tu compañero para que el multijugador funcione sin problemas.</p>
+        
+        <div class="cards-grid">
+          <div class="emu-block" style="margin-bottom: 0;">
+            <div class="emu-header">
+              <span class="emu-name">ROMs GBA</span>
+              <span class="badge badge-ios">Kanto/Hoenn</span>
+            </div>
+            <p class="emu-desc">Rojo Fuego, Verde Hoja o Esmeralda (.gba). No requieren BIOS.</p>
+            <a href="https://www.mediafire.com/folder/ft6tvyz23vp39/GBA" class="btn-primary" style="display:inline-flex; font-size: 8px;">&#8681; Buscar ROM GBA</a>
+          </div>
+
+          <div class="emu-block" style="margin-bottom: 0;">
+            <div class="emu-header">
+              <span class="emu-name">ROMs NDS</span>
+              <span class="badge badge-android">Sinnoh/Teselia</span>
+            </div>
+            <p class="emu-desc">Diamante, Platino, Blanco/Negro (.nds). Requieren emulador avanzado.</p>
+            <a href="https://www.mediafire.com/folder/t1hh60znc2hgm/NDS" class="btn-primary" style="display:inline-flex; font-size: 8px;">&#8681; Buscar ROM NDS</a>
+          </div>
+
+          <div class="emu-block" style="margin-bottom: 0;">
+            <div class="emu-header">
+              <span class="emu-name">Archivos BIOS NDS</span>
+              <span class="badge badge-pc">SISTEMA</span>
+            </div>
+            <p class="emu-desc">bios7.bin, bios9.bin y firmware.bin. Requerido por Delta en MelonDS ya no se requiere porque ya viene incluido en la version de PC.</p>
+            <a href="#" class="btn-secondary" style="display:inline-flex; font-size: 8px;">&#8681; Descargar BIOS</a>
+          </div>
+        </div>
+
+        <div class="warn-block" style="margin-top: 24px;">
+          <strong>Importante:</strong> Solo usa ROMs de juegos que ya posees. La distribución de ROMs protegidas por derechos de autor es ilegal.
+        </div>
+      </section>
+    </div>
+
+    <section>
+      <div class="section-label">&#10140;</div>
+      <h2>Randomizer (opcional pero recomendado)</h2>
+      <p>El Randomizer hace el Duallocke mucho más variado e impredecible. Soporta perfectamente tanto juegos de GBA como de NDS.</p>
+      <div class="emu-block">
+        <div class="emu-header">
+          <span class="emu-name">Universal Pokemon Randomizer ZX</span>
+          <span class="badge badge-pc">PC</span>
+          <span class="badge badge-free">Gratis</span>
+        </div>
+        <p class="emu-desc">Permite randomizar encuentros, evoluciones, objetos y cambiar las reglas de evolución (para evolucionar Pokémon de intercambio por nivel).</p>
+        <a href="https://github.com/Ajarmar/universal-pokemon-randomizer-zx/releases" target="_blank" class="btn-primary" style="margin-top:14px; display:inline-flex">&#8681; Descargar Randomizer ZX</a>
+      </div>
+      <div class="steps" style="margin-top:24px">
+        <div class="step">
+          <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h4>Abrir la ROM en el Randomizer</h4>
+            <p>Abre el Randomizer.jar (necesitas Java) → File → Open ROM → selecciona tu .nds o .gba.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <h4>Usar la misma seed</h4>
+            <p>IMPORTANTE: ambos jugadores deben usar la misma seed (semilla) generada por el randomizer para que los encuentros estén sincronizados en la misma ruta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  /* Se mantienen todos tus estilos exactos sin modificaciones */
+  .page-header { background: var(--panel); border-bottom: 2px solid var(--blue); padding: 60px 20px 48px; text-align: center; position: relative; overflow: hidden; }
+  .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(69,123,157,0.12) 0%, transparent 70%); }
+  .header-content { position: relative; }
+  .subtitle-tag { font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--blue); letter-spacing: 3px; display: block; margin-bottom: 16px; }
+  h1 { font-family: 'Press Start 2P', monospace; font-size: clamp(20px, 5vw, 36px); color: var(--yellow); text-shadow: 4px 4px 0 rgba(69,123,157,0.4); margin-bottom: 16px; line-height: 1.5; }
+  .header-desc { color: var(--muted); font-size: 13px; max-width: 540px; margin: 0 auto; }
+  .platform-tabs { display: flex; gap: 0; background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 20px; overflow-x: auto; scrollbar-width: none; }
+  .platform-tabs::-webkit-scrollbar { display: none; }
+  .plat-btn { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 16px 20px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .plat-btn:hover { color: var(--text); }
+  .plat-btn.active { color: var(--yellow); border-color: var(--yellow); }
+  .main-content { max-width: 860px; margin: 0 auto; padding: 40px 20px 0; }
+  .platform-section { display: none; }
+  .platform-section.active { display: block; }
+  section { margin-bottom: 56px; }
+  .section-label { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--blue); letter-spacing: 2px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  h2 { font-family: 'Press Start 2P', monospace; font-size: clamp(13px, 2.5vw, 18px); color: var(--yellow); margin-bottom: 20px; line-height: 1.5; }
+  h4 { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--text); margin: 0 0 8px; }
+  p { color: #ccc; margin-bottom: 12px; line-height: 1.6; }
+  .link { color: var(--yellow); text-decoration: none; }
+  .link:hover { text-decoration: underline; }
+  .steps { display: flex; flex-direction: column; }
+  .step { display: flex; gap: 20px; padding-bottom: 28px; }
+  .step:last-child { padding-bottom: 0; }
+  .step-num-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .step-num { width: 36px; height: 36px; background: var(--blue); color: #fff; font-family: 'Press Start 2P', monospace; font-size: 11px; display: flex; align-items: center; justify-content: center; border-radius: 2px; }
+  .step-line { flex: 1; width: 1px; background: var(--border); margin-top: 8px; }
+  .step:last-child .step-line { display: none; }
+  .step-body { padding-top: 6px; flex: 1; }
+  .step-body h4 { font-size: 10px; color: var(--text); margin: 0 0 8px; }
+  .step-body p { font-size: 13px; margin: 0 0 6px; }
+  code { background: #222; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: var(--yellow); }
+  .emu-block { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; margin-bottom: 16px; }
+  .emu-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .emu-name { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--text); }
+  .emu-desc { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .badge { font-family: 'Press Start 2P', monospace; font-size: 7px; padding: 3px 8px; border-radius: 2px; display: inline-block; }
+  .badge-pc { background: rgba(255,214,10,0.1); color: var(--yellow); border: 1px solid rgba(255,214,10,0.3); }
+  .badge-free { background: rgba(45,198,83,0.15); color: var(--green); border: 1px solid rgba(45,198,83,0.3); }
+  .badge-android { background: rgba(45,198,83,0.15); color: var(--green); border: 1px solid rgba(45,198,83,0.3); }
+  .badge-ios { background: rgba(69,123,157,0.2); color: #7ab4d4; border: 1px solid rgba(69,123,157,0.3); }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+  .warn-block, .note-block { background: rgba(255,214,10,0.05); border-left: 3px solid var(--yellow); padding: 12px 16px; font-size: 13px; color: #ccc; margin-bottom: 24px; }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll('.plat-btn');
+  const sections = document.querySelectorAll('.platform-section');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-target');
+
+      // 1. Quitar la clase 'active' de todas las secciones y botones
+      sections.forEach(sec => sec.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // 2. Agregar la clase 'active' a la seccion y al boton clickeado
+      document.getElementById('plat-' + targetId)?.classList.add('active');
+      button.classList.add('active');
+    });
+  });
+</script>

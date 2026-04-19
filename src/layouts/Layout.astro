@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Guia completa para tu Duallocke Soul Link Nuzlocke' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Guia' },
+  { href: '/instalacion', label: 'Instalacion' },
+  { href: '/tracker', label: 'Tracker' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} — Duallocke Soul Link</title>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">X</span>
+        <span class="logo-text">DUALLOCKE</span>
+      </a>
+      <div class="nav-links">
+        {navLinks.map(link => (
+          <a href={link.href} class={`nav-link ${currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'active' : ''}`}>
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-text">
+        Duallocke Soul Link - Guia para uso personal - Los emuladores son software libre - Las ROMs deben ser de juegos que ya posees.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,13,13,0.97);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--yellow);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+  .logo-icon { font-size: 16px; }
+  .nav-links { display: flex; }
+  .nav-link {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 16px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-link:hover { color: var(--text); border-color: var(--border); }
+  .nav-link.active { color: var(--yellow); border-color: var(--yellow); }
+  .site-footer {
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    padding: 28px 20px;
+    margin-top: 80px;
+  }
+  .footer-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+  .footer-text { color: var(--muted); font-size: 11px; }
+</style>
