@@ -35,6 +35,9 @@ export default function Dashboard({ session, profile, onSignOut, supaFetch }) {
       body: JSON.stringify({
         player1_id: profile.id,
         game: runData.game,
+        lives_per_player: runData.lives || 3,
+        player1_lives: runData.lives || 3,
+        player2_lives: runData.lives || 3,
         invite_code: code,
         status: 'waiting',
       }),

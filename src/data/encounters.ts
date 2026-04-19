@@ -1,0 +1,400 @@
+// Encuentros por ruta y juego
+// Fuente: datos canónicos de cada juego
+// Formato: gameId -> routeId -> string[] (nombres en inglés para PokeAPI)
+
+export type EncounterMap = Record<string, Record<string, string[]>>;
+
+export const ENCOUNTERS: EncounterMap = {
+
+  // ─────────────────────────────────────────────
+  // ROJO FUEGO / VERDE HOJA
+  // ─────────────────────────────────────────────
+  firered: {
+    "ruta1":         ["pidgey", "rattata"],
+    "ruta2":         ["pidgey", "rattata", "caterpie", "weedle", "metapod", "kakuna"],
+    "ruta3":         ["spearow", "jigglypuff", "mankey", "nidoran-m", "nidoran-f"],
+    "ruta4":         ["spearow", "ekans", "goldeen", "tentacool", "magikarp"],
+    "ruta5":         ["meowth", "clefairy", "jigglypuff", "pidgey"],
+    "ruta6":         ["drowzee", "pidgey", "rattata"],
+    "ruta7":         ["vulpix", "growlithe", "pikachu", "rattata"],
+    "ruta8":         ["growlithe", "vulpix", "electabuzz", "rattata"],
+    "ruta9":         ["rattata", "ekans", "nidoran-m", "nidoran-f"],
+    "ruta10":        ["voltorb", "magnemite", "pikachu"],
+    "ruta11":        ["ekans", "spearow", "drowzee"],
+    "ruta12":        ["snorlax", "pidgey", "slowpoke", "poliwag"],
+    "ruta13":        ["pidgey", "bellsprout", "venonat", "weepinbell"],
+    "ruta14":        ["pidgey", "bellsprout", "venonat", "weepinbell"],
+    "ruta15":        ["pidgey", "bellsprout", "venonat"],
+    "ruta16":        ["spearow", "rattata", "snorlax"],
+    "ruta17":        ["spearow", "rattata", "fearow"],
+    "ruta18":        ["spearow", "rattata", "fearow"],
+    "ruta21":        ["tangela", "pidgey", "pidgeotto"],
+    "ruta22":        ["nidoran-m", "nidoran-f", "mankey", "spearow"],
+    "ruta23":        ["arbok", "fearow", "primeape"],
+    "ruta24":        ["bellsprout", "abra", "oddish", "caterpie"],
+    "ruta25":        ["bellsprout", "oddish", "pikachu", "caterpie"],
+    "monte-moon":    ["zubat", "geodude", "clefairy", "paras"],
+    "tunel-roca":    ["geodude", "onix", "zubat", "machop"],
+    "safari":        ["nidorina", "nidorino", "parasect", "venomoth", "doduo", "rhyhorn", "kangaskhan", "scyther", "pinsir", "chansey", "tauros"],
+    "torre-pokemon": ["gastly", "haunter", "cubone"],
+    "victoria-road": ["machoke", "graveler", "golbat", "kadabra"],
+  },
+
+  leafgreen: {
+    "ruta1":         ["pidgey", "rattata"],
+    "ruta2":         ["pidgey", "rattata", "caterpie", "weedle", "metapod", "kakuna"],
+    "ruta3":         ["spearow", "jigglypuff", "mankey", "nidoran-m", "nidoran-f"],
+    "ruta4":         ["spearow", "sandshrew", "goldeen", "tentacool", "magikarp"],
+    "ruta5":         ["meowth", "clefairy", "jigglypuff", "pidgey"],
+    "ruta6":         ["drowzee", "pidgey", "rattata"],
+    "ruta7":         ["sandshrew", "pikachu", "rattata"],
+    "ruta8":         ["sandshrew", "pikachu", "rattata"],
+    "ruta9":         ["rattata", "sandshrew", "nidoran-m", "nidoran-f"],
+    "ruta10":        ["voltorb", "magnemite", "pikachu"],
+    "ruta11":        ["sandshrew", "spearow", "drowzee"],
+    "ruta12":        ["snorlax", "pidgey", "slowpoke", "poliwag"],
+    "ruta22":        ["nidoran-m", "nidoran-f", "mankey", "spearow"],
+    "monte-moon":    ["zubat", "geodude", "clefairy", "paras"],
+    "tunel-roca":    ["geodude", "onix", "zubat", "machop"],
+    "safari":        ["nidorina", "nidorino", "parasect", "venomoth", "doduo", "rhyhorn", "kangaskhan", "pinsir", "scyther", "chansey", "tauros"],
+    "torre-pokemon": ["gastly", "haunter", "cubone"],
+    "victoria-road": ["machoke", "graveler", "golbat", "kadabra"],
+  },
+
+  // ─────────────────────────────────────────────
+  // RUBI
+  // ─────────────────────────────────────────────
+  ruby: {
+    "ruta101":       ["poochyena", "zigzagoon"],
+    "ruta102":       ["poochyena", "zigzagoon", "wurmple", "ralts", "lotad", "seedot"],
+    "ruta103":       ["poochyena", "zigzagoon", "wingull"],
+    "ruta104":       ["poochyena", "zigzagoon", "wurmple", "taillow", "wingull"],
+    "ruta105":       ["tentacool", "wingull", "pelipper"],
+    "ruta106":       ["tentacool", "wingull"],
+    "ruta110":       ["poochyena", "zigzagoon", "oddish", "gulpin", "electrike", "plusle", "minun"],
+    "ruta111":       ["sandshrew", "trapinch", "cacnea", "baltoy"],
+    "ruta112":       ["numel", "torkoal"],
+    "ruta113":       ["spinda", "skarmory", "slugma"],
+    "ruta114":       ["lotad", "lombre", "swablu", "zangoose"],
+    "ruta115":       ["swablu", "jigglypuff"],
+    "ruta116":       ["nincada", "whismur", "skitty"],
+    "ruta117":       ["poochyena", "zigzagoon", "roselia", "volbeat", "illumise"],
+    "ruta118":       ["zigzagoon", "electrike", "linoone"],
+    "ruta119":       ["oddish", "gloom", "tropius", "wurmple"],
+    "ruta120":       ["oddish", "gloom", "absol", "kecleon"],
+    "ruta121":       ["oddish", "shuppet", "vulpix"],
+    "ruta123":       ["oddish", "gloom", "shuppet", "magikarp"],
+    "ruta124":       ["tentacool", "wingull"],
+    "ruta125":       ["tentacool", "wingull", "pelipper"],
+    "ruta126":       ["tentacool", "wingull", "pelipper"],
+    "ruta127":       ["tentacool", "wingull", "pelipper"],
+    "ruta128":       ["tentacool", "wingull"],
+    "cueva-granite": ["geodude", "makuhita", "aron", "zubat"],
+    "mt-chimney":    ["numel"],
+    "cueva-meteor":  ["solrock", "golbat", "zubat"],
+    "jungla-pokemo": ["nincada", "wurmple"],
+  },
+
+  // ─────────────────────────────────────────────
+  // ZAFIRO
+  // ─────────────────────────────────────────────
+  sapphire: {
+    "ruta101":       ["poochyena", "zigzagoon"],
+    "ruta102":       ["poochyena", "zigzagoon", "wurmple", "ralts", "lotad", "seedot"],
+    "ruta103":       ["poochyena", "zigzagoon", "wingull"],
+    "ruta104":       ["poochyena", "zigzagoon", "wurmple", "taillow", "wingull"],
+    "ruta110":       ["poochyena", "zigzagoon", "oddish", "gulpin", "electrike", "plusle", "minun"],
+    "ruta111":       ["sandshrew", "trapinch", "cacnea", "baltoy"],
+    "ruta112":       ["numel", "torkoal"],
+    "ruta113":       ["spinda", "skarmory", "slugma"],
+    "ruta116":       ["nincada", "whismur", "skitty"],
+    "ruta117":       ["poochyena", "zigzagoon", "roselia", "volbeat", "illumise"],
+    "ruta118":       ["zigzagoon", "electrike"],
+    "ruta119":       ["oddish", "gloom", "tropius", "wurmple"],
+    "ruta120":       ["oddish", "gloom", "absol", "kecleon"],
+    "ruta121":       ["oddish", "shuppet", "vulpix"],
+    "ruta123":       ["oddish", "gloom", "shuppet"],
+    "ruta124":       ["tentacool", "wingull"],
+    "cueva-granite": ["geodude", "makuhita", "aron", "zubat"],
+    "mt-chimney":    ["numel"],
+    "cueva-meteor":  ["lunatone", "golbat", "zubat"],
+  },
+
+  // ─────────────────────────────────────────────
+  // ESMERALDA
+  // ─────────────────────────────────────────────
+  emerald: {
+    "ruta101":       ["poochyena", "zigzagoon"],
+    "ruta102":       ["poochyena", "zigzagoon", "wurmple", "ralts", "lotad", "seedot"],
+    "ruta103":       ["poochyena", "zigzagoon", "wingull"],
+    "ruta104":       ["poochyena", "zigzagoon", "wurmple", "taillow"],
+    "ruta110":       ["poochyena", "zigzagoon", "oddish", "gulpin", "electrike", "plusle", "minun"],
+    "ruta111":       ["sandshrew", "trapinch", "cacnea", "baltoy"],
+    "ruta112":       ["numel"],
+    "ruta113":       ["spinda", "skarmory", "slugma"],
+    "ruta116":       ["nincada", "whismur", "skitty"],
+    "ruta117":       ["poochyena", "zigzagoon", "roselia"],
+    "ruta118":       ["zigzagoon", "electrike"],
+    "ruta119":       ["oddish", "gloom", "tropius"],
+    "ruta120":       ["oddish", "gloom", "absol", "kecleon"],
+    "ruta121":       ["oddish", "shuppet"],
+    "ruta123":       ["oddish", "gloom", "shuppet"],
+    "cueva-granite": ["geodude", "makuhita", "aron", "zubat"],
+    "mt-chimney":    ["numel"],
+    "cueva-meteor":  ["solrock", "lunatone", "golbat"],
+  },
+
+  // ─────────────────────────────────────────────
+  // HEARTGOLD
+  // ─────────────────────────────────────────────
+  heartgold: {
+    "ruta29":        ["sentret", "hoothoot", "pidgey"],
+    "ruta30":        ["caterpie", "metapod", "hoothoot", "ledyba", "poliwag"],
+    "ruta31":        ["bellsprout", "wooper", "hoothoot", "caterpie"],
+    "ruta32":        ["bellsprout", "ekans", "mareep", "wooper", "poliwag"],
+    "ruta33":        ["ekans", "spearow", "wooper"],
+    "ruta34":        ["rattata", "abra", "drowzee", "ditto"],
+    "ruta35":        ["nidoran-m", "nidoran-f", "abra", "yanma"],
+    "ruta36":        ["stantler", "hoothoot", "pidgey"],
+    "ruta37":        ["stantler", "vulpix", "hoothoot"],
+    "ruta38":        ["tauros", "miltank", "raticate"],
+    "ruta39":        ["tauros", "miltank", "rattata"],
+    "ruta40":        ["tentacool", "krabby", "kingler"],
+    "ruta41":        ["tentacruel", "mantine", "chinchou"],
+    "ruta42":        ["spearow", "ekans", "goldeen", "magikarp"],
+    "ruta43":        ["noctowl", "mareep", "flaaffy"],
+    "ruta44":        ["tangela", "weepinbell", "lickitung"],
+    "ruta45":        ["geodude", "graveler", "gligar"],
+    "ruta46":        ["geodude", "phanpy", "skarmory"],
+    "cueva-union":   ["geodude", "onix", "rattata", "zubat"],
+    "cueva-hielo":   ["swinub", "zubat", "golbat"],
+    "torre-quemada": ["growlithe"],
+    "lago-ira":      ["magikarp", "goldeen"],
+    "guarida-victor":["graveler", "golbat", "ursaring"],
+  },
+
+  // ─────────────────────────────────────────────
+  // SOULSILVER
+  // ─────────────────────────────────────────────
+  soulsilver: {
+    "ruta29":        ["sentret", "hoothoot", "pidgey"],
+    "ruta30":        ["caterpie", "metapod", "hoothoot", "spinarak", "poliwag"],
+    "ruta31":        ["bellsprout", "wooper", "hoothoot", "weedle"],
+    "ruta32":        ["bellsprout", "mareep", "wooper", "poliwag"],
+    "ruta33":        ["rattata", "wooper"],
+    "ruta34":        ["rattata", "abra", "drowzee", "ditto"],
+    "ruta35":        ["nidoran-m", "nidoran-f", "abra", "yanma"],
+    "ruta36":        ["stantler", "hoothoot", "pidgey"],
+    "ruta37":        ["stantler", "vulpix", "hoothoot"],
+    "ruta38":        ["tauros", "miltank", "raticate"],
+    "ruta39":        ["tauros", "miltank", "rattata"],
+    "ruta40":        ["tentacool", "krabby"],
+    "ruta42":        ["spearow", "goldeen", "magikarp"],
+    "ruta44":        ["tangela", "weepinbell"],
+    "cueva-union":   ["geodude", "onix", "rattata", "zubat"],
+    "cueva-hielo":   ["swinub", "zubat"],
+    "lago-ira":      ["magikarp", "goldeen"],
+  },
+
+  // ─────────────────────────────────────────────
+  // DIAMANTE
+  // ─────────────────────────────────────────────
+  diamond: {
+    "ruta201":       ["starly", "bidoof"],
+    "ruta202":       ["starly", "bidoof", "shinx", "kricketot"],
+    "ruta203":       ["shinx", "starly", "bidoof", "abra"],
+    "ruta204":       ["budew", "kricketot", "wurmple", "zubat"],
+    "ruta205":       ["pachirisu", "buizel", "shellos", "bidoof"],
+    "ruta206":       ["ponyta", "geodude", "kricketune", "stunky"],
+    "ruta207":       ["geodude", "ponyta", "machop"],
+    "ruta208":       ["bibarel", "geodude", "chansey"],
+    "ruta209":       ["staravia", "bidoof", "bonsly"],
+    "ruta210":       ["staravia", "bibarel", "psyduck", "bonsly"],
+    "ruta211":       ["meditite", "zubat", "clefairy"],
+    "ruta212":       ["budew", "marill", "psyduck", "kecleon"],
+    "ruta213":       ["staravia", "wingull"],
+    "ruta214":       ["stunky", "houndour", "rhyhorn"],
+    "ruta215":       ["sneasel", "kadabra", "marill"],
+    "ruta216":       ["snover", "sneasel", "meditite"],
+    "ruta217":       ["snover", "sneasel", "medicham"],
+    "ruta218":       ["mr-mime", "magikarp"],
+    "ruta219":       ["tentacool", "wingull"],
+    "ruta220":       ["tentacool", "wingull"],
+    "ruta221":       ["floatzel", "girafarig"],
+    "ruta222":       ["magikarp", "tentacool", "pelipper"],
+    "ruta224":       ["roselia", "beautifly", "dustox"],
+    "cueva-oreburgh":["geodude", "onix", "zubat"],
+    "bosque-eterna": ["budew", "buneary", "wurmple", "silcoon", "cascoon"],
+    "cueva-wayward": ["zubat", "geodude", "psyduck"],
+    "monte-coronet": ["geodude", "cleffa", "zubat", "bronzor"],
+    "gran-pantano":  ["carnivine", "staravia", "bibarel"],
+    "lago-verity":   ["magikarp"],
+    "lago-valor":    ["magikarp"],
+    "lago-acuity":   ["magikarp", "snover"],
+    "victoria-road-d":["graveler", "golbat", "medicham"],
+  },
+
+  // ─────────────────────────────────────────────
+  // PERLA
+  // ─────────────────────────────────────────────
+  pearl: {
+    "ruta201":       ["starly", "bidoof"],
+    "ruta202":       ["starly", "bidoof", "shinx", "kricketot"],
+    "ruta203":       ["shinx", "starly", "bidoof", "abra"],
+    "ruta204":       ["budew", "kricketot", "wurmple", "zubat"],
+    "ruta205":       ["pachirisu", "buizel", "shellos", "bidoof"],
+    "ruta208":       ["bibarel", "geodude", "chansey"],
+    "ruta209":       ["staravia", "bidoof", "happiny"],
+    "ruta210":       ["staravia", "bibarel", "psyduck"],
+    "ruta212":       ["budew", "marill", "psyduck"],
+    "ruta213":       ["staravia", "wingull"],
+    "ruta214":       ["glameow", "houndour", "rhyhorn"],
+    "ruta216":       ["snover", "sneasel", "meditite"],
+    "ruta217":       ["snover", "sneasel"],
+    "cueva-oreburgh":["geodude", "onix", "zubat"],
+    "bosque-eterna": ["budew", "buneary", "wurmple"],
+    "monte-coronet": ["geodude", "cleffa", "zubat", "bronzor"],
+    "gran-pantano":  ["carnivine", "staravia"],
+    "victoria-road-p":["graveler", "golbat", "medicham"],
+  },
+
+  // ─────────────────────────────────────────────
+  // PLATINO
+  // ─────────────────────────────────────────────
+  platinum: {
+    "ruta201":       ["starly", "bidoof"],
+    "ruta202":       ["starly", "bidoof", "shinx", "kricketot"],
+    "ruta203":       ["shinx", "starly", "bidoof", "abra", "budew"],
+    "ruta204":       ["budew", "kricketot", "wurmple"],
+    "ruta205":       ["pachirisu", "buizel", "shellos", "bidoof"],
+    "ruta206":       ["ponyta", "geodude", "kricketune"],
+    "ruta207":       ["geodude", "ponyta", "machop"],
+    "ruta208":       ["bibarel", "geodude", "chansey"],
+    "ruta209":       ["staravia", "bidoof", "mime-jr"],
+    "ruta210":       ["staravia", "bibarel", "psyduck"],
+    "ruta211":       ["meditite", "zubat", "clefairy"],
+    "ruta212":       ["budew", "marill", "psyduck"],
+    "ruta213":       ["staravia", "wingull", "hippopotas"],
+    "ruta214":       ["rhyhorn", "geodude", "houndoom"],
+    "ruta215":       ["sneasel", "kadabra"],
+    "ruta216":       ["snover", "sneasel", "meditite"],
+    "ruta217":       ["snover", "sneasel", "medicham"],
+    "ruta222":       ["magikarp", "tentacool"],
+    "ruta224":       ["roselia", "beautifly"],
+    "cueva-oreburgh":["geodude", "onix", "zubat"],
+    "bosque-eterna": ["budew", "buneary", "wurmple"],
+    "cueva-wayward": ["zubat", "geodude", "psyduck", "bronzor"],
+    "monte-coronet": ["geodude", "cleffa", "zubat", "bronzor"],
+    "gran-pantano":  ["carnivine", "staravia"],
+    "lago-verity":   ["magikarp"],
+    "lago-valor":    ["magikarp"],
+    "lago-acuity":   ["magikarp"],
+    "distortion-world":["gastly", "golbat"],
+    "victoria-road-pl":["graveler", "golbat", "medicham"],
+  },
+
+  // ─────────────────────────────────────────────
+  // NEGRO
+  // ─────────────────────────────────────────────
+  black: {
+    "ruta1-n":       ["patrat", "lillipup"],
+    "ruta2-n":       ["patrat", "lillipup", "purrloin"],
+    "ruta3-n":       ["audino", "blitzle", "roggenrola", "timburr"],
+    "ruta4-n":       ["sandile", "darumaka", "maractus", "scraggy"],
+    "ruta5-n":       ["minccino", "liepard", "trubbish"],
+    "ruta6-n":       ["deerling", "emolga", "foongus"],
+    "ruta7-n":       ["cubchoo", "deerling", "krokorok"],
+    "ruta8-n":       ["cubchoo", "stunfisk", "shelmet"],
+    "ruta9-n":       ["pawniard", "garbodor", "druddigon"],
+    "ruta10-n":      ["heatmor", "durant", "volcarona"],
+    "ruta11-n":      ["joltik", "karrablast", "fraxure"],
+    "ruta12-n":      ["stunfisk", "corsola", "leavanny"],
+    "ruta13-n":      ["watchog", "zangoose", "frillish"],
+    "ruta14-n":      ["absol", "mienfoo", "pawniard"],
+    "ruta15-n":      ["watchog", "sawk", "throh"],
+    "ruta16-n":      ["liepard", "trubbish", "gothita"],
+    "ruta17-n":      ["boldore", "swoobat", "ducklett"],
+    "ruta18-n":      ["bouffalant", "rufflet", "vullaby"],
+    "bosque-pinwheel":["tympole", "throh", "sawk", "sewaddle", "cottonee", "petilil"],
+    "desierto-desert":["sandile", "darumaka", "sigilyph", "scraggy"],
+    "cueva-chargestone":["ferroseed", "klink", "tynamo", "joltik"],
+    "montana-twist": ["mienfoo", "axew", "druddigon"],
+    "victoria-road-n":["boldore", "woobat", "gurdurr"],
+  },
+
+  // ─────────────────────────────────────────────
+  // BLANCO
+  // ─────────────────────────────────────────────
+  white: {
+    "ruta1-w":       ["patrat", "lillipup"],
+    "ruta2-w":       ["patrat", "lillipup", "purrloin"],
+    "ruta3-w":       ["audino", "blitzle", "roggenrola", "timburr"],
+    "ruta4-w":       ["sandile", "darumaka", "maractus", "scraggy"],
+    "ruta5-w":       ["minccino", "liepard", "trubbish"],
+    "ruta6-w":       ["deerling", "emolga", "foongus"],
+    "ruta7-w":       ["cubchoo", "deerling", "krokorok"],
+    "ruta8-w":       ["cubchoo", "stunfisk", "karrablast"],
+    "ruta9-w":       ["pawniard", "garbodor", "druddigon"],
+    "ruta10-w":      ["heatmor", "durant"],
+    "ruta13-w":      ["zangoose", "frillish", "watchog"],
+    "ruta14-w":      ["absol", "mienfoo", "pawniard"],
+    "ruta15-w":      ["watchog", "sawk", "throh"],
+    "bosque-pinwheel":["tympole", "throh", "sawk", "sewaddle", "cottonee", "petilil"],
+    "ciudad-blanca":  ["audino"],
+    "cueva-chargestone":["ferroseed", "klink", "tynamo", "joltik"],
+    "victoria-road-w":["boldore", "woobat", "gurdurr"],
+  },
+
+  // ─────────────────────────────────────────────
+  // NEGRO 2
+  // ─────────────────────────────────────────────
+  black2: {
+    "ruta19-b2":     ["patrat", "purrloin"],
+    "ruta20-b2":     ["patrat", "lillipup", "purrloin"],
+    "ruta4-b2":      ["sandile", "darumaka", "maractus"],
+    "ruta5-b2":      ["minccino", "liepard", "trubbish"],
+    "ruta6-b2":      ["deerling", "emolga", "foongus"],
+    "ruta7-b2":      ["cubchoo", "deerling", "krokorok"],
+    "ruta8-b2":      ["cubchoo", "stunfisk", "shelmet"],
+    "ruta9-b2":      ["pawniard", "garbodor", "audino"],
+    "ruta11-b2":     ["joltik", "karrablast", "fraxure"],
+    "ruta12-b2":     ["stunfisk", "corsola"],
+    "ruta13-b2":     ["watchog", "zangoose", "frillish"],
+    "ruta14-b2":     ["absol", "mienfoo", "pawniard"],
+    "ruta21-b2":     ["heatmor", "durant", "bouffalant"],
+    "ruta22-b2":     ["rufflet", "vullaby", "bouffalant"],
+    "ruta23-b2":     ["haxorus", "mienfoo", "pawniard"],
+    "bosque-virbank":["patrat", "pidove", "growlithe"],
+    "cueva-seaside": ["frillish", "magikarp", "corsola"],
+    "cueva-chargestone":["ferroseed", "klink", "tynamo", "joltik"],
+    "montana-twist": ["mienfoo", "axew", "druddigon"],
+    "victoria-road-b2":["boldore", "woobat", "gurdurr"],
+  },
+
+  // ─────────────────────────────────────────────
+  // BLANCO 2
+  // ─────────────────────────────────────────────
+  white2: {
+    "ruta19-w2":     ["patrat", "purrloin"],
+    "ruta20-w2":     ["patrat", "lillipup", "purrloin"],
+    "ruta4-w2":      ["sandile", "darumaka", "maractus"],
+    "ruta5-w2":      ["minccino", "liepard", "trubbish"],
+    "ruta6-w2":      ["deerling", "emolga", "foongus"],
+    "ruta7-w2":      ["cubchoo", "deerling", "krokorok"],
+    "ruta9-w2":      ["pawniard", "garbodor", "audino"],
+    "ruta11-w2":     ["joltik", "karrablast", "fraxure"],
+    "ruta13-w2":     ["watchog", "frillish"],
+    "ruta14-w2":     ["absol", "mienfoo"],
+    "ruta21-w2":     ["heatmor", "durant", "bouffalant"],
+    "ruta22-w2":     ["rufflet", "vullaby", "bouffalant"],
+    "bosque-virbank":["patrat", "pidove", "growlithe"],
+    "cueva-seaside": ["frillish", "magikarp"],
+    "ciudad-blanca-w2":["audino"],
+    "cueva-chargestone":["ferroseed", "klink", "tynamo", "joltik"],
+    "victoria-road-w2":["boldore", "woobat", "gurdurr"],
+  },
+};
+
+export function getEncounters(gameId: string, routeId: string): string[] {
+  return ENCOUNTERS[gameId]?.[routeId] ?? [];
+}
