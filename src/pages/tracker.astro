@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import TrackerApp from '../components/tracker/TrackerApp';
 ---
 
-<Layout title="Tracker">
-  <TrackerApp client:load />
+<Layout title="Tracker" description="Crea una run Soul Link, comparte el código con tu compañero y sigan sus vínculos, gimnasios, equipo y vidas en tiempo real.">
+  <TrackerApp client:only="react">
+    <div slot="fallback" style="min-height:50vh;display:grid;place-items:center;color:#a6a6a6">Cargando tracker...</div>
+  </TrackerApp>
 </Layout>

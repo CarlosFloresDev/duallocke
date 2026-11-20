@@ -6,71 +6,105 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Guia completa para tu Duallocke Soul Link Nuzlocke' } = Astro.props;
-const currentPath = Astro.url.pathname;
+const { title, description = 'Guía y tracker en tiempo real para jugar un Nuzlocke Soul Link en pareja.' } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = `${title} | Duallocke Soul Link`;
 
 const navLinks = [
-  { href: '/', label: 'Guia' },
-  { href: '/instalacion', label: 'Instalacion' },
+  { href: '/', label: 'Guía' },
+  { href: '/instalacion', label: 'Instalación' },
   { href: '/tracker', label: 'Tracker' },
 ];
+const isActive = (href: string) => (href === '/' ? currentPath === '/' : currentPath.startsWith(href));
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
-  <title>{title} — Duallocke Soul Link</title>
-</head>
-<body>
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">
-        <span class="logo-icon">X</span>
-        <span class="logo-text">DUALLOCKE</span>
-      </a>
-      <div class="nav-links">
-        {navLinks.map(link => (
-          <a href={link.href} class={`nav-link ${currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'active' : ''}`}>
-            {link.label}
-          </a>
-        ))}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_PE" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <nav class="site-nav" aria-label="Principal">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo" aria-label="Duallocke, inicio">
+          <img src="/favicon.svg" alt="" width="22" height="22" />
+          <span class="logo-text">DUALLOCKE</span>
+        </a>
+        <div class="nav-links">
+          {navLinks.map((link) => (
+            <a href={link.href} class:list={['nav-link', { active: isActive(link.href) }]} aria-current={isActive(link.href) ? 'page' : undefined}>
+              {link.label}
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <main>
-    <slot />
-  </main>
+    <main id="main">
+      <slot />
+    </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p class="footer-text">
-        Duallocke Soul Link - Guia para uso personal - Los emuladores son software libre - Las ROMs deben ser de juegos que ya posees.
-      </p>
-    </div>
-  </footer>
-</body>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-text">
+          Duallocke Soul Link es un proyecto de fans sin relación con Nintendo, Game Freak ni The Pokémon Company.
+        </p>
+        <p class="footer-text">Los emuladores son software libre. Las ROMs deben ser de juegos que ya posees.</p>
+      </div>
+    </footer>
+  </body>
 </html>
 
 <style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+  }
+  .skip-link:focus {
+    left: 16px;
+    top: 12px;
+    z-index: 200;
+    background: var(--yellow);
+    color: #000;
+    padding: 8px 12px;
+    font-weight: 700;
+  }
   .site-nav {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(13,13,13,0.97);
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
   }
   .nav-inner {
-    max-width: 1000px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 52px;
+    gap: 16px;
+    height: 60px;
   }
   .nav-logo {
     display: flex;
@@ -79,31 +113,57 @@ const navLinks = [
     text-decoration: none;
     color: var(--yellow);
     font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 2px;
   }
-  .logo-icon { font-size: 16px; }
-  .nav-links { display: flex; }
+  .nav-links {
+    display: flex;
+    height: 100%;
+  }
   .nav-link {
     font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
+    font-size: 10px;
     color: var(--muted);
     text-decoration: none;
     padding: 0 16px;
-    height: 52px;
     display: flex;
     align-items: center;
     border-bottom: 2px solid transparent;
     transition: color 0.15s, border-color 0.15s;
   }
-  .nav-link:hover { color: var(--text); border-color: var(--border); }
-  .nav-link.active { color: var(--yellow); border-color: var(--yellow); }
+  .nav-link:hover {
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .nav-link.active {
+    color: var(--yellow);
+    border-color: var(--yellow);
+  }
   .site-footer {
     background: var(--panel);
     border-top: 1px solid var(--border);
     padding: 28px 20px;
     margin-top: 80px;
   }
-  .footer-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-  .footer-text { color: var(--muted); font-size: 11px; }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    gap: 6px;
+  }
+  .footer-text {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0;
+  }
+  @media (max-width: 600px) {
+    .logo-text {
+      display: none;
+    }
+    .nav-link {
+      font-size: 9px;
+      padding: 0 10px;
+    }
+  }
 </style>

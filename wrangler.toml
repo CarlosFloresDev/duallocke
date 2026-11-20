@@ -1,0 +1,9 @@
+name = "duallocke"
+compatibility_date = "2026-11-01"
+pages_build_output_dir = "./dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "duallocke"
+database_id = "8e9e6b6e-27a7-47cd-b900-06d0440958f0"
+migrations_dir = "migrations"
