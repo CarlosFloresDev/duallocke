@@ -67,7 +67,7 @@ export default function Dashboard({ profile, onLogout, onProfile }: { profile: P
       {error ? <Alert>{error}</Alert> : null}
 
       {view.name === 'list' ? (
-        <section className="grid gap-6">
+        <section className="anim-pop grid gap-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <h1 className="font-pixel text-sm text-poke-yellow">Mis runs</h1>
             <div className="flex flex-wrap gap-3">
@@ -89,15 +89,15 @@ export default function Dashboard({ profile, onLogout, onProfile }: { profile: P
             </EmptyState>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2">
-              {runs.map((r) => {
+              {runs.map((r, idx) => {
                 const game = gameById(r.game);
                 const partner = r.player1_id === profile.id ? r.player2 : r.player1;
                 const myLives = r.player1_id === profile.id ? r.player1_lives : r.player2_lives;
                 return (
-                  <li key={r.id}>
+                  <li key={r.id} className="anim-pop" style={{ ['--d' as string]: `${idx * 60}ms` }}>
                     <button
                       onClick={() => open(r)}
-                      className="group grid w-full gap-4 rounded-md border border-line bg-panel p-5 text-left transition hover:-translate-y-0.5 hover:border-[#444]"
+                      className="lift group grid w-full gap-4 rounded-md border border-line bg-panel p-5 text-left hover:border-[#444]"
                       style={{ borderLeft: `3px solid ${game?.color ?? '#888'}` }}
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -172,7 +172,7 @@ function CreateRunForm({ onCreate, onCancel }: { onCreate: (game: string, lives:
   const platforms = [...new Set(GAMES.map((g) => g.platform))];
 
   return (
-    <section className="grid gap-8">
+    <section className="anim-pop grid gap-8">
       <div className="flex items-center gap-4">
         <Button variant="ghost" onClick={onCancel}>
           ← Volver
@@ -189,7 +189,7 @@ function CreateRunForm({ onCreate, onCancel }: { onCreate: (game: string, lives:
               {GAMES.filter((g) => g.platform === platform).map((g) => (
                 <label
                   key={g.id}
-                  className={`cursor-pointer rounded-md border p-4 transition ${game === g.id ? 'bg-white/5' : 'border-line bg-panel hover:border-[#444]'}`}
+                  className={`lift cursor-pointer rounded-md border p-4 ${game === g.id ? 'bg-white/5' : 'border-line bg-panel hover:border-[#444]'}`}
                   style={game === g.id ? { borderColor: g.color } : undefined}
                 >
                   <input type="radio" name="game" value={g.id} className="sr-only" checked={game === g.id} onChange={() => setGame(g.id)} />
@@ -208,7 +208,7 @@ function CreateRunForm({ onCreate, onCancel }: { onCreate: (game: string, lives:
         <legend className="mb-3 font-pixel text-[10px] text-dim">2. Vidas por jugador</legend>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {LIVES_OPTIONS.map((o) => (
-            <label key={o.value} className={`cursor-pointer rounded-md border p-4 transition ${lives === o.value ? 'border-poke-red bg-poke-red/10' : 'border-line bg-panel hover:border-[#444]'}`}>
+            <label key={o.value} className={`lift cursor-pointer rounded-md border p-4 ${lives === o.value ? 'border-poke-red bg-poke-red/10' : 'border-line bg-panel hover:border-[#444]'}`}>
               <input type="radio" name="lives" className="sr-only" checked={lives === o.value} onChange={() => setLives(o.value)} />
               <span className="block font-pixel text-[9px] text-fg">{o.label}</span>
               <span className="mt-2 block text-xs leading-snug text-dim">{o.desc}</span>
@@ -251,7 +251,7 @@ function JoinRunForm({ onJoin, onCancel }: { onJoin: (code: string) => Promise<v
   const [error, setError] = useState('');
 
   return (
-    <section className="mx-auto grid w-full max-w-md gap-6">
+    <section className="anim-pop mx-auto grid w-full max-w-md gap-6">
       <div className="flex items-center gap-4">
         <Button variant="ghost" onClick={onCancel}>
           ← Volver

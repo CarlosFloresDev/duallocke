@@ -93,7 +93,7 @@ export default function LinksTab({ run, game, links, slot, me, partner, onChange
       </div>
 
       {showForm ? (
-        <Card className="p-6">
+        <Card className="anim-pop p-6">
           <form onSubmit={submit} className="grid gap-6">
             <div className="grid gap-2">
               <label htmlFor="route" className="font-pixel text-[9px] text-dim">
@@ -147,7 +147,7 @@ export default function LinksTab({ run, game, links, slot, me, partner, onChange
                       type="button"
                       key={name}
                       onClick={() => setPokemon(name)}
-                      className={`grid justify-items-center gap-1 rounded border p-2 transition ${toSlug(pokemon) === name ? 'border-poke-yellow bg-poke-yellow/10' : 'border-line hover:border-[#444]'}`}
+                      className={`grid justify-items-center gap-1 rounded border p-2 transition hover:-translate-y-1 ${toSlug(pokemon) === name ? 'border-poke-yellow bg-poke-yellow/10' : 'border-line hover:border-[#444]'}`}
                     >
                       <PokeImage name={name} size={48} />
                       <span className="text-center text-xs text-fg">{displayName(name)}</span>
@@ -202,10 +202,10 @@ export default function LinksTab({ run, game, links, slot, me, partner, onChange
         </EmptyState>
       ) : (
         <ul className="grid gap-4 md:grid-cols-2">
-          {sorted.map((l) => {
+          {sorted.map((l, idx) => {
             const complete = Boolean(l.player1_pokemon && l.player2_pokemon);
             return (
-              <li key={l.id} className={`grid gap-4 rounded-md border bg-panel p-5 ${l.status === 'dead' ? 'border-poke-red/30 opacity-70' : 'border-line'}`}>
+              <li key={l.id} style={{ ['--d' as string]: `${Math.min(idx, 10) * 50}ms` }} className={`anim-pop lift grid gap-4 rounded-md border bg-panel p-5 ${l.status === 'dead' ? 'border-poke-red/30 opacity-70' : 'border-line'}`}>
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-pixel text-[10px] text-fg">{l.route_name}</p>
                   {complete ? (

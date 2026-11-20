@@ -36,7 +36,7 @@ export default function PokeImage({ name, size = 64, className = '' }: { name: s
       height={size}
       loading="lazy"
       decoding="async"
-      className={`object-contain [image-rendering:auto] ${className}`}
+      className={`anim-pop object-contain transition-transform duration-300 hover:scale-110 ${className}`}
       style={box}
     />
   );

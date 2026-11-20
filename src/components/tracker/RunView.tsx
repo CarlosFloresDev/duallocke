@@ -46,7 +46,7 @@ export default function RunView({ initial, profile, onBack }: { initial: Run; pr
   const finished = run.status === 'finished';
 
   return (
-    <section className="grid gap-6">
+    <section className="anim-pop grid gap-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-3">
           <Button variant="ghost" className="justify-self-start !px-0" onClick={onBack}>
@@ -79,7 +79,7 @@ export default function RunView({ initial, profile, onBack }: { initial: Run; pr
       {finished ? <Alert>La run terminó: un jugador se quedó sin vidas. Puedes revivir un vínculo si fue un error.</Alert> : null}
 
       {run.status === 'waiting' ? (
-        <div className="flex flex-wrap items-center gap-4 rounded-md border border-poke-yellow/30 bg-poke-yellow/5 px-5 py-4">
+        <div className="anim-glow flex flex-wrap items-center gap-4 rounded-md border border-poke-yellow/30 bg-poke-yellow/5 px-5 py-4">
           <span className="text-sm text-dim">Comparte este código con tu compañero:</span>
           <span className="font-pixel text-xl tracking-[0.3em] text-poke-yellow">{run.invite_code}</span>
           <Button
@@ -130,17 +130,18 @@ export default function RunView({ initial, profile, onBack }: { initial: Run; pr
         ))}
       </div>
 
+      <div key={tab} className="anim-pop">
       {tab === 'links' && game ? (
         <LinksTab run={run} game={game} links={links} slot={slot} me={{ ...profile, avatar_color: colors.me }} partner={partner ? { ...partner, avatar_color: colors.partner } : null} onChange={refresh} />
       ) : null}
 
       {tab === 'gyms' && game ? (
         <ul className="grid gap-3">
-          {game.gyms.map((g) => {
+          {game.gyms.map((g, idx) => {
             const mine = gyms.some((p) => p.player_id === profile.id && p.gym_number === g.number);
             const theirs = !!partnerId && gyms.some((p) => p.player_id === partnerId && p.gym_number === g.number);
             return (
-              <li key={g.number} className={`flex flex-wrap items-center gap-4 rounded-md border bg-panel px-5 py-4 ${mine && theirs ? 'border-poke-green/40' : 'border-line'}`}>
+              <li key={g.number} style={{ ['--d' as string]: `${idx * 40}ms` }} className={`anim-pop lift flex flex-wrap items-center gap-4 rounded-md border bg-panel px-5 py-4 ${mine && theirs ? 'border-poke-green/40' : 'border-line'}`}>
                 <span className="grid size-10 place-items-center rounded bg-panel-2 font-pixel text-xs text-poke-yellow">{g.number}</span>
                 <div className="min-w-48 flex-1">
                   <p className="font-bold text-fg">{g.leader} <span className="font-normal text-dim">· {g.type}</span></p>
@@ -171,6 +172,7 @@ export default function RunView({ initial, profile, onBack }: { initial: Run; pr
       {tab === 'team' ? (
         <TeamTab run={run} links={links} slot={slot} me={{ ...profile, avatar_color: colors.me }} partner={partner ? { ...partner, avatar_color: colors.partner } : null} onChange={refresh} />
       ) : null}
+      </div>
     </section>
   );
 }

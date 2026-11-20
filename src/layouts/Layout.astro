@@ -34,6 +34,7 @@ const isActive = (href: string) => (href === '/' ? currentPath === '/' : current
     <meta property="og:locale" content="es_PE" />
     <meta name="theme-color" content="#0d0d0d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -71,6 +72,38 @@ const isActive = (href: string) => (href === '/' ? currentPath === '/' : current
         <p class="footer-text">Los emuladores son software libre. Las ROMs deben ser de juegos que ya posees.</p>
       </div>
     </footer>
+    <script>
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Pages without explicit reveal markup (e.g. installation) still get section fade-ins.
+      if (!document.querySelector('.reveal')) {
+        document.querySelectorAll('main section, main .emu-block, main .step, main .card').forEach((el) => el.classList.add('reveal'));
+      }
+
+      const items = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
+          { threshold: 0.12 },
+        );
+        items.forEach((el) => io.observe(el));
+      }
+
+      // Subtle 3D tilt on cards marked with .tilt (mouse only).
+      if (!reduce && matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll<HTMLElement>('.tilt').forEach((el) => {
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            el.style.transform = `perspective(700px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) translateY(-2px)`;
+          });
+          el.addEventListener('pointerleave', () => (el.style.transform = ''));
+        });
+      }
+    </script>
   </body>
 </html>
 

@@ -1,559 +1,329 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const art = (id: number) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+const steps = [
+  { n: '1', title: 'Capturen', text: 'Cada uno atrapa el primer Pokémon de la misma ruta.' },
+  { n: '2', title: 'Vincúlenlos', text: 'Esos dos Pokémon quedan unidos para toda la partida.' },
+  { n: '3', title: 'Sobrevivan', text: 'Si uno cae, su pareja también. Ganan o pierden juntos.' },
+];
+
+const rules = [
+  { tag: 'Nuzlocke', text: 'Solo el primer encuentro de cada ruta.' },
+  { tag: 'Nuzlocke', text: 'Si se debilita, está muerto.' },
+  { tag: 'Nuzlocke', text: 'Ponle apodo a todos.' },
+  { tag: 'Soul Link', text: 'Sin captura de uno, se pierde la ruta para los dos.' },
+  { tag: 'Soul Link', text: 'Si un vinculado muere, su pareja va al PC.' },
+  { tag: 'Soul Link', text: 'Al PC se va en pareja, nunca solo.' },
+  { tag: 'Soul Link', text: 'Ningún gimnasio sin que el otro esté listo.' },
+  { tag: 'Opcional', text: 'Tipos únicos entre ambos equipos.' },
+  { tag: 'Opcional', text: 'Randomizer para encuentros imprevisibles.' },
+];
+
+const emulators = [
+  { name: 'mGBA', platform: 'PC', consoles: 'GBA', note: 'Multijugador en la misma PC', url: 'https://mgba.io/downloads.html' },
+  { name: 'MelonDS', platform: 'PC · Android', consoles: 'NDS', note: 'Wi-Fi local para la Sala Unión', url: 'https://melonds.kuribo64.net/' },
+  { name: 'DraStic', platform: 'Android', consoles: 'NDS', note: 'El más rápido en móvil, gratis', url: 'https://github.com/R-YaTian/DraStic_rev_i18n/releases' },
+  { name: 'My Boy!', platform: 'Android', consoles: 'GBA', note: 'Link por Wi-Fi o Bluetooth', url: null },
+  { name: 'Delta', platform: 'iOS', consoles: 'GBA · NDS', note: 'Desde la App Store, sin jailbreak', url: 'https://apps.apple.com/app/delta-game-emulator/id1048524688' },
+];
+
+const tips = [
+  { title: 'Hablen por voz', text: 'Coordinar en vivo hace cada encuentro más tenso.' },
+  { title: 'Save state de emergencia', text: 'Solo ante un crash, nunca para repetir combates.' },
+  { title: 'Un gimnasio por sesión', text: 'Avancen al mismo ritmo y esperen al otro.' },
+  { title: 'Avisen cada muerte', text: 'Paren y marquen el vínculo en el tracker.' },
+];
+
+const regions = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Teselia'];
 ---
 
-<Layout title="Guia Duallocke">
-  <header class="page-header">
-    <div class="pokeball-deco"></div>
-    <div class="header-content">
-      <span class="subtitle-tag">&#9658; guia completa</span>
-      <h1>DUALLOCKE<br/>SOUL LINK</h1>
-      <p class="header-desc">Todo lo que necesitas para jugar un Nuzlocke de dos jugadores en las regiones de Sinnoh, Kanto o Hoenn. Reglas, emuladores (NDS/GBA), configuración y tracker en tiempo real.</p>
-      <div class="header-btns">
-        <a href="/instalacion" class="btn-primary">Ver Instalacion</a>
-        <a href="/tracker" class="btn-secondary">Abrir Tracker</a>
+<Layout title="Guía" description="Juega un Nuzlocke Soul Link en pareja: reglas en un minuto, emuladores recomendados y un tracker en vivo para tus vínculos, vidas y gimnasios.">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"><div class="ring"></div><div class="grid-bg"></div></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Nuzlocke cooperativo para dos</p>
+        <h1 class="reveal" style="--d:80ms">Atrapen juntos.<br /><span class="red">Pierdan juntos.</span></h1>
+        <p class="lead reveal" style="--d:160ms">Reglas en un minuto, emuladores probados y un tracker en vivo para tu Soul Link.</p>
+        <div class="cta reveal" style="--d:240ms">
+          <a href="/tracker" class="btn-primary">Abrir tracker</a>
+          <a href="/instalacion" class="btn-secondary">Cómo instalar</a>
+        </div>
+        <ul class="regions reveal" style="--d:320ms" aria-label="Regiones disponibles">
+          {regions.map((r) => <li>{r}</li>)}
+        </ul>
+      </div>
+
+      <div class="duo" aria-hidden="true">
+        <div class="mon mon-a"><img src={art(25)} alt="" width="220" height="220" /><span class="tag tag-a">Jugador 1</span></div>
+        <svg class="chain" viewBox="0 0 120 40" preserveAspectRatio="none">
+          <path d="M0 20 Q 60 -6 120 20" />
+          <path class="pulse" d="M0 20 Q 60 -6 120 20" />
+        </svg>
+        <div class="mon mon-b"><img src={art(133)} alt="" width="220" height="220" /><span class="tag tag-b">Jugador 2</span></div>
+        <div class="lives"><span>♥</span><span>♥</span><span>♥</span></div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <div class="page-nav">
-    <a href="#que-es">Que es</a>
-    <a href="#reglas">Reglas</a>
-    <a href="#emuladores">Emuladores</a>
-    <a href="#conexion">Conexion</a>
-    <a href="#tips">Tips</a>
-  </div>
-
-  <div class="main-content">
-
-    <section id="que-es">
-      <div class="section-label">01</div>
-      <h2>Que es un Duallocke?</h2>
-      <p>El <strong class="highlight">Duallocke</strong> (tambien llamado <strong class="highlight">Soul Link Nuzlocke</strong>) es una variante cooperativa del clasico Nuzlocke donde dos jugadores juegan simultaneamente. Cada Pokemon que capturas queda "vinculado" al Pokemon capturado por tu companero en esa misma ruta. Si uno muere, el otro tambien muere.</p>
-
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-top red"></div>
-          <span class="card-icon">&#9876;</span>
-          <h3>Cooperativo y dramatico</h3>
-          <p>Comparten victorias y perdidas. Cada muerte afecta a los dos equipos.</p>
-        </div>
-        <div class="card">
-          <div class="card-top blue"></div>
-          <span class="card-icon">&#128279;</span>
-          <h3>Pokemon vinculados</h3>
-          <p>El primer encuentro de cada ruta forma una pareja entre ambos jugadores.</p>
-        </div>
-        <div class="card">
-          <div class="card-top green"></div>
-          <span class="card-icon">&#127918;</span>
-          <h3>Mismo avance</h3>
-          <p>Ambos jugadores deben avanzar juntos: mismo gimnasio, misma ruta.</p>
-        </div>
-      </div>
+  <div class="wrap">
+    <section id="como-funciona" class="block">
+      <h2 class="reveal">Cómo funciona</h2>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li class="step reveal tilt" style={`--d:${i * 90}ms`}>
+            <span class="step-n">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
     </section>
 
-    <section id="reglas">
-      <div class="section-label">02</div>
-      <h2>Reglas del Soul Link Nuzlocke</h2>
-      <p>Estas son las reglas estandar. Pueden modificarlas entre ustedes antes de empezar.</p>
-
-      <h3>Reglas base (Nuzlocke)</h3>
-      <div class="rules-grid">
-        <div class="rule-card">
-          <span class="rule-num">01</span>
-          <h4>Solo el primero</h4>
-          <p>Solo puedes capturar al primer Pokemon que encuentres en cada ruta o area.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">02</span>
-          <h4>Si muere, muere</h4>
-          <p>Si un Pokemon se desmaya, esta muerto. Debes liberarlo o dejarlo en el PC para siempre.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">03</span>
-          <h4>Ponles nombre</h4>
-          <p>Nombra a todos tus Pokemon para crear apego emocional.</p>
-        </div>
-      </div>
-
-      <h3 style="margin-top:28px">Reglas adicionales del Soul Link</h3>
-      <div class="rules-grid">
-        <div class="rule-card">
-          <span class="rule-num">04</span>
-          <h4>Vinculo de ruta</h4>
-          <p>El primer encuentro de cada ruta queda vinculado entre ambos jugadores. Si uno no captura, el otro tambien pierde esa ruta.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">05</span>
-          <h4>Muerte vinculada</h4>
-          <p>Cuando un Pokemon vinculado muere, su pareja tambien debe ir al PC o ser liberada.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">06</span>
-          <h4>PC vinculado</h4>
-          <p>Si mandas un Pokemon al PC, su pareja tambien va al PC. No puedes separar el vinculo.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">07</span>
-          <h4>Avance simultaneo</h4>
-          <p>No puedes derrotar al siguiente gimnasio hasta que tu companero este listo.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">08</span>
-          <h4>Tipos unicos (opcional)</h4>
-          <p>Ningun equipo puede tener el mismo tipo de Pokemon para mayor variedad.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-num">09</span>
-          <h4>Randomizer (opcional)</h4>
-          <p>Usen un randomizer para tener encuentros distintos y hacerlo mas imprevisible.</p>
-        </div>
-      </div>
-
-      <div class="note-block" style="margin-top:20px">
-        <strong>Consejo:</strong> Antes de empezar, decidan juntos si usaran randomizer, si permiten objetos en combate y si hay clausula de duplicados.
-      </div>
+    <section id="reglas" class="block">
+      <h2 class="reveal">Reglas</h2>
+      <p class="sub reveal">Las estándar. Acuerden los cambios antes de empezar.</p>
+      <ul class="rules">
+        {rules.map((r, i) => (
+          <li class={`rule reveal rule-${r.tag === 'Nuzlocke' ? 'base' : r.tag === 'Soul Link' ? 'link' : 'opt'}`} style={`--d:${i * 40}ms`}>
+            <span class="rule-tag">{r.tag}</span>
+            <span>{r.text}</span>
+          </li>
+        ))}
+      </ul>
     </section>
 
-    <section id="emuladores">
-      <div class="section-label">03</div>
-      <h2>Emuladores recomendados (NDS y GBA)</h2>
-      <p>Para garantizar la estabilidad del Duallocke, se requiere el uso de emuladores que soporten conectividad de red local (para NDS) o Cable Link virtual (para GBA).</p>
-
-      <h3>Plataforma PC</h3>
-      <div class="emu-block">
-        <div class="emu-header">
-          <span class="emu-name">mGBA</span>
-          <span class="badge badge-pc">PC</span>
-          <span class="badge badge-rec">Recomendado GBA</span>
-          <span class="badge badge-free">Gratis</span>
-        </div>
-        <p class="emu-desc">El estándar técnico para la emulación de Game Boy Advance. Permite instanciar múltiples ventanas multijugador para ejecutar intercambios en tiempo real sobre la misma máquina.</p>
-        <div class="emu-tags">
-          <span class="pro-tag">Multijugador Nativo</span>
-          <span class="pro-tag">No requiere BIOS</span>
-          <span class="pro-tag">Windows / Mac / Linux</span>
-        </div>
-        <a href="https://mgba.io/downloads.html" target="_blank" class="btn-primary" style="margin-top:12px; display:inline-flex">&#8681; Descargar mGBA</a>
+    <section id="tracker" class="block showcase">
+      <div class="showcase-copy reveal">
+        <h2>Todo el Soul Link en un solo lugar</h2>
+        <ul class="checks">
+          <li>Crea una run y comparte un código de 6 letras.</li>
+          <li>Registra capturas con los encuentros de cada ruta.</li>
+          <li>Vidas compartidas que se descuentan solas.</li>
+          <li>Gimnasios y equipo de los dos, sincronizados.</li>
+        </ul>
+        <a href="/tracker" class="btn-primary">Crear mi run</a>
       </div>
-
-      <div class="emu-block">
-        <div class="emu-header">
-          <span class="emu-name">MelonDS</span>
-          <span class="badge badge-pc">PC / Android</span>
-          <span class="badge badge-rec">Recomendado NDS</span>
-          <span class="badge badge-free">Gratis</span>
-        </div>
-        <p class="emu-desc">El rey actual de la emulación de NDS. Excelente precisión y simula la conexión local inalámbrica de la consola (ideal para la Sala Unión).</p>
-        <div class="emu-tags">
-          <span class="pro-tag">Multijugador Local</span>
-          <span class="pro-tag">Requiere BIOS</span>
-          <span class="pro-tag">Windows / Mac / Linux / Android</span>
-        </div>
-        <a href="https://melonds.kuribo64.net/" target="_blank" class="btn-primary" style="margin-top:12px; display:inline-flex">&#8681; Descargar MelonDS</a>
-      </div>
-
-      <h3 style="margin-top:32px;">Plataforma Móvil</h3>
-      <div class="emu-block">
-        <div class="emu-header">
-          <span class="emu-name">My Boy!</span>
-          <span class="badge badge-android">Android</span>
-          <span class="badge badge-rec">Recomendado GBA</span>
-        </div>
-        <p class="emu-desc">Emulador optimizado para dispositivos móviles que soporta conectividad de Cable Link mediante protocolos Bluetooth o Wi-Fi local.</p>
-        <div class="emu-tags">
-          <span class="pro-tag">Link Remoto Wi-Fi/BT</span>
-          <span class="pro-tag">Rendimiento Óptimo</span>
-        </div>
-      </div>
-
-      <div class="emu-block">
-        <div class="emu-header">
-          <span class="emu-name">DraStic (Android)</span>
-          <span class="badge badge-android">Android</span>
-          <span class="badge badge-free">Ahora Gratis</span>
-        </div>
-        <p class="emu-desc">Históricamente el emulador más rápido de Android para NDS, ahora es completamente gratuito. Perfecto para jugar en móvil si no necesitan intercambiar constantemente.</p>
-        <div class="emu-tags">
-          <span class="pro-tag">Rendimiento Perfecto</span>
-          <span class="pro-tag">No requiere BIOS externas</span>
-          <span class="pro-tag">Soporte mando BT</span>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
-          <a href="https://github.com/R-YaTian/DraStic_rev_i18n/releases" target="_blank" class="btn-primary">&#8681; Descargar DraStic</a>
-        </div>
-      </div>
-
-      <div class="emu-block">
-        <div class="emu-header">
-          <span class="emu-name">Delta (iOS)</span>
-          <span class="badge badge-ios">iOS</span>
-          <span class="badge badge-free">Gratis</span>
-        </div>
-        <p class="emu-desc">El emulador oficial para iPhone/iPad. Sin jailbreak. Disponible en el App Store. Soporta nativamente la ejecución de ROMs tanto de NDS como de GBA.</p>
-        <div class="emu-tags">
-          <span class="pro-tag">App Store oficial</span>
-          <span class="pro-tag">Requiere BIOS (Solo NDS)</span>
-          <span class="pro-tag">Soporte mando BT</span>
-        </div>
-        <a href="https://apps.apple.com/app/delta-game-emulator/id1048524688" target="_blank" class="btn-primary" style="margin-top:12px; display:inline-flex">&#8681; App Store — Delta</a>
-      </div>
-
-      <div class="note-block">
-        <strong>Para los intercambios (Sistemas Móviles):</strong> La emulación de red en iOS/Android aún es inestable o inexistente para NDS. Si necesitan evolucionar Pokémon por intercambio, transfieran el archivo de guardado (.sav) a una instancia de PC temporalmente.
-      </div>
-    </section>
-
-    <section id="conexion">
-      <div class="section-label">04</div>
-      <h2>Conexión y Sincronización</h2>
-      <p>La arquitectura de conectividad varía según la consola emulada. A diferencia de GBA que utilizaba un protocolo serial (Cable Link), Nintendo DS operaba bajo una red inalámbrica. Para el Soul Link necesitan coordinar capturas, pero la conexión real solo es necesaria para <strong class="highlight">tradear Pokemon</strong>.</p>
-
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-top orange"></div>
-          <h3>Game Boy Advance (Link)</h3>
-          <p>Para juegos de Kanto o Hoenn. Utilice las funciones de "Multijugador local" en mGBA (PC) o "Link Remote" en My Boy! (Android) para acceder al Centro de Cambio en el Centro Pokémon.</p>
-        </div>
-        <div class="card">
-          <div class="card-top blue"></div>
-          <h3>Nintendo DS (Wireless)</h3>
-          <p>Para juegos de Sinnoh o Teselia. Requiere la configuración del adaptador Wi-Fi emulado en MelonDS para acceder a la Sala Unión.</p>
-        </div>
-      </div>
-
-      <div class="note-block" style="margin-top:16px">
-        <strong>La magia del Tracker:</strong> Para el Soul Link puro no necesitas la Sala Unión ni el Cable Link obligatoriamente. Solo coordinan verbalmente qué capturaron en cada ruta. El tracker de esta app mantiene el orden.
-      </div>
-
-      <h3 style="margin-top:28px">Pasos para intercambiar en MelonDS (PC)</h3>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
-          <div class="step-body">
-            <h4>Abrir dos instancias de MelonDS</h4>
-            <p>Abre el emulador dos veces. Carga la misma ROM de Pokémon Diamante en ambas ventanas.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
-          <div class="step-body">
-            <h4>Configurar el Wi-Fi local</h4>
-            <p>En ambas ventanas ve a <strong>Config → Wifi settings</strong> y asegúrate de que la casilla <strong>"Bind to any address"</strong> esté activada.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num-wrap"><div class="step-num">3</div><div class="step-line"></div></div>
-          <div class="step-body">
-            <h4>Entrar a la Sala Unión</h4>
-            <p>En el juego, sube al <strong>Piso de Arriba</strong> del Centro Pokémon. Habla con la recepcionista del centro para entrar a la Sala Unión Inalámbrica. Haz esto en ambas ventanas al mismo tiempo.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num-wrap"><div class="step-num">4</div><div class="step-line"></div></div>
-          <div class="step-body">
-            <h4>Iniciar el intercambio</h4>
-            <p>Verás al personaje de tu compañero en la sala. Habla con él en una ventana, y acepta la invitación en la otra.</p>
+      <div class="showcase-media reveal tilt" style="--d:120ms">
+        <div class="mock">
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-body">
+            <div class="mock-route">Ruta 201 <em>Vivo</em></div>
+            <div class="mock-pair">
+              <figure><img src={art(396)} alt="Starly" width="96" height="96" loading="lazy" /><figcaption>Starly</figcaption></figure>
+              <span class="mock-link">⇄</span>
+              <figure><img src={art(399)} alt="Bidoof" width="96" height="96" loading="lazy" /><figcaption>Bidoof</figcaption></figure>
+            </div>
+            <div class="mock-stats">
+              <span>Gimnasios <b>3/8</b></span>
+              <span>Muertes <b class="red">1</b></span>
+              <span class="hearts">♥ ♥ <i>♥</i></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="tips">
-      <div class="section-label">05</div>
-      <h2>Tips para el Duallocke</h2>
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-top red"></div>
-          <span class="card-icon">&#128203;</span>
-          <h3>Usen el Tracker</h3>
-          <p>Esta app tiene un tracker integrado. Registren vinculos, gimnasios y muertes en tiempo real.</p>
-        </div>
-        <div class="card">
-          <div class="card-top yellow"></div>
-          <span class="card-icon">&#128241;</span>
-          <h3>Coordinense por voz</h3>
-          <p>Jueguen con plataformas de comunicación por voz activas. Coordinar en tiempo real hace el Soul Link mucho mas dramatico.</p>
-        </div>
-        <div class="card">
-          <div class="card-top green"></div>
-          <span class="card-icon">&#128190;</span>
-          <h3>Save states de seguridad</h3>
-          <p>Antes de cada gimnasio hagan un save state de emergencia. No los usen en combate, solo ante crash del emulador.</p>
-        </div>
-        <div class="card">
-          <div class="card-top blue"></div>
-          <span class="card-icon">&#127922;</span>
-          <h3>Randomizer (opcional)</h3>
-          <p>Usa Universal Pokemon Randomizer ZX para randomizar encuentros. Soporta tanto archivos .gba como .nds.</p>
-        </div>
-        <div class="card">
-          <div class="card-top orange"></div>
-          <span class="card-icon">&#9201;</span>
-          <h3>Avancen juntos</h3>
-          <p>No mas de un gimnasio por sesion, y siempre esperense antes de entrar al siguiente pueblo.</p>
-        </div>
-        <div class="card">
-          <div class="card-top red"></div>
-          <span class="card-icon">&#9760;</span>
-          <h3>Regla de la muerte</h3>
-          <p>Cuando muera un Pokemon, avisen inmediatamente al companero. No sigan jugando hasta confirmar que pasa con el vinculado.</p>
-        </div>
-      </div>
+    <section id="emuladores" class="block">
+      <h2 class="reveal">Emuladores</h2>
+      <p class="sub reveal">Gratis y probados para Soul Link. <a href="/instalacion" class="inline-link">Guía de instalación paso a paso →</a></p>
+      <ul class="emus">
+        {emulators.map((e, i) => (
+          <li class="emu reveal tilt" style={`--d:${i * 60}ms`}>
+            <div class="emu-top">
+              <h3>{e.name}</h3>
+              <span class="pill">{e.consoles}</span>
+            </div>
+            <p class="emu-platform">{e.platform}</p>
+            <p class="emu-note">{e.note}</p>
+            {e.url ? <a href={e.url} target="_blank" rel="noopener" class="emu-link">Descargar ↗</a> : <span class="emu-link muted">Google Play</span>}
+          </li>
+        ))}
+      </ul>
+      <p class="hint reveal">¿Intercambios en móvil? Pasen el archivo .sav a una PC solo para el intercambio.</p>
     </section>
 
+    <section id="tips" class="block">
+      <h2 class="reveal">Tips</h2>
+      <ul class="tips">
+        {tips.map((t, i) => (
+          <li class="tip reveal" style={`--d:${i * 70}ms`}>
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="final reveal">
+      <h2>¿Listos para la primera ruta?</h2>
+      <a href="/tracker" class="btn-primary">Abrir tracker</a>
+    </section>
   </div>
 </Layout>
 
 <style>
-  .page-header {
-    background: var(--panel);
-    border-bottom: 2px solid var(--red);
-    padding: 60px 20px 48px;
-    text-align: center;
+  .hero {
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse at 70% 30%, rgba(230, 57, 70, 0.14), transparent 60%), var(--dark);
   }
-  .page-header::before {
-    content: '';
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .grid-bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(230,57,70,0.12) 0%, transparent 70%);
-    pointer-events: none;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at 60% 40%, #000 20%, transparent 75%);
   }
-  .pokeball-deco {
+  .ring {
     position: absolute;
-    width: 300px; height: 300px;
+    width: 560px;
+    height: 560px;
+    right: -120px;
+    top: -140px;
     border-radius: 50%;
-    border: 40px solid rgba(230,57,70,0.06);
-    top: -100px; right: -60px;
-    pointer-events: none;
+    border: 48px solid rgba(230, 57, 70, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(230, 57, 70, 0.05);
+    animation: spin 60s linear infinite;
   }
-  .header-content { position: relative; }
-  .subtitle-tag {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: var(--red);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 16px;
+  .hero-inner {
+    position: relative;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 20px 80px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
   }
+  .eyebrow { font-family: 'Press Start 2P', monospace; font-size: 10px; color: var(--yellow); margin: 0 0 20px; }
   h1 {
     font-family: 'Press Start 2P', monospace;
-    font-size: clamp(20px, 5vw, 36px);
-    color: var(--yellow);
-    text-shadow: 4px 4px 0 rgba(230,57,70,0.4);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  .header-desc {
-    color: var(--muted);
-    font-size: 13px;
-    max-width: 540px;
-    margin: 0 auto 24px;
-  }
-  .header-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-  }
-
-  .page-nav {
-    position: sticky;
-    top: 52px;
-    z-index: 90;
-    background: rgba(13,13,13,0.95);
-    border-bottom: 1px solid var(--border);
-    padding: 0 20px;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    max-width: 100%;
-  }
-  .page-nav::-webkit-scrollbar { display: none;
-  }
-  .page-nav a {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 14px 16px;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .page-nav a:hover { color: var(--yellow); border-color: var(--yellow); }
-
-  .main-content {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 40px 20px 0;
-  }
-
-  section { margin-bottom: 64px;
-  }
-
-  .section-label {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: var(--red);
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  h2 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(13px, 2.5vw, 18px);
-    color: var(--yellow);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  h3 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
+    font-size: clamp(20px, 2.6vw, 30px);
+    line-height: 1.45;
+    margin: 0;
     color: var(--text);
-    margin: 20px 0 12px;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
   }
-  h4 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: var(--text);
-    margin: 0 0 8px;
-  }
-  p { color: #ccc; margin-bottom: 12px; }
-  .highlight { color: var(--yellow);
-  }
+  .red { color: var(--red); }
+  .lead { font-size: 17px; color: var(--muted); max-width: 44ch; margin: 22px 0 0; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .cta .btn-primary, .cta .btn-secondary { font-size: 10px; padding: 15px 22px; }
+  .regions { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 28px 0 0; }
+  .regions li { font-size: 12px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 20px;
-  }
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-  .card:hover { border-color: #444; transform: translateY(-2px);
-  }
-  .card-top { height: 3px; position: absolute; top: 0; left: 0; right: 0; }
-  .card-top.red { background: var(--red);
-  }
-  .card-top.blue { background: var(--blue); }
-  .card-top.green { background: var(--green); }
-  .card-top.orange { background: var(--orange);
-  }
-  .card-top.yellow { background: var(--yellow); }
-  .card-icon { font-size: 22px; display: block; margin-bottom: 10px;
-  }
-  .card h3 { font-size: 10px; color: var(--yellow); margin: 0 0 10px; }
-  .card p { font-size: 12px;
-    color: var(--muted); margin: 0; }
+  .duo { position: relative; height: 340px; }
+  .mon { position: absolute; top: 40px; display: grid; justify-items: center; gap: 8px; }
+  .mon img { width: min(200px, 34vw); height: auto; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.6)); }
+  .mon-a { left: 0; animation: bob 3.2s ease-in-out infinite; }
+  .mon-b { right: 0; animation: bob 3.2s ease-in-out 1.6s infinite; }
+  .tag { font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 5px 8px; border-radius: 3px; color: #000; }
+  .tag-a { background: var(--red); color: #fff; }
+  .tag-b { background: var(--blue); color: #fff; }
+  .chain { position: absolute; left: 28%; right: 28%; top: 150px; width: 44%; height: 60px; overflow: visible; }
+  .chain path { fill: none; stroke: #444; stroke-width: 2; stroke-dasharray: 6 6; }
+  .chain .pulse { stroke: var(--yellow); stroke-width: 3; stroke-dasharray: 18 200; animation: flow 2.2s linear infinite; }
+  .lives { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; gap: 8px; font-size: 22px; color: var(--red); }
+  .lives span { animation: beat 1.6s ease-in-out infinite; }
+  .lives span:nth-child(2) { animation-delay: 0.15s; }
+  .lives span:nth-child(3) { animation-delay: 0.3s; }
 
-  .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 12px;
-  }
-  .rule-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px;
-  }
-  .rule-num {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 18px;
-    color: rgba(230,57,70,0.2);
-    display: block;
-    margin-bottom: 6px;
-  }
-  .rule-card h4 { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--yellow); margin-bottom: 8px;
-  }
-  .rule-card p { font-size: 12px; color: var(--muted); margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  .block { padding-top: 96px; }
+  h2 { font-family: 'Press Start 2P', monospace; font-size: clamp(15px, 2vw, 20px); line-height: 1.5; color: var(--yellow); margin: 0 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+  .inline-link { color: var(--yellow); text-decoration: none; border-bottom: 1px solid transparent; }
+  .inline-link:hover { border-color: currentColor; }
 
-  .emu-block {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    transition: border-color 0.2s;
+  .steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step { position: relative; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 28px 24px; }
+  .step-n {
+    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 4px;
+    background: var(--red); color: #fff; font-family: 'Press Start 2P', monospace; font-size: 13px; margin-bottom: 18px;
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
   }
-  .emu-block:hover { border-color: #333;
-  }
-  .emu-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
-  }
-  .emu-name { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--text); }
-  .emu-desc { color: var(--muted);
-    font-size: 13px; margin-bottom: 14px; }
-  .emu-tags { display: flex; flex-wrap: wrap; gap: 8px;
-  }
-  .pro-tag {
-    font-size: 11px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    padding: 3px 10px;
-    border-radius: 20px;
-    color: #aaa;
-  }
-  .pro-tag::before { content: '✓ '; color: var(--green);
-  }
+  .step h3 { font-family: 'Press Start 2P', monospace; font-size: 11px; color: var(--text); margin: 0 0 10px; }
+  .step p { color: var(--muted); margin: 0; font-size: 14px; }
 
-  .badge {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    padding: 3px 8px;
-    border-radius: 2px;
-    display: inline-block;
+  .rules { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .rule {
+    display: grid; gap: 8px; background: var(--panel); border: 1px solid var(--border); border-left-width: 3px;
+    border-radius: 4px; padding: 14px 16px; font-size: 14px; transition: transform 0.2s, background 0.2s;
   }
-  .badge-pc { background: rgba(255,214,10,0.1); color: var(--yellow); border: 1px solid rgba(255,214,10,0.3); }
-  .badge-rec { background: rgba(230,57,70,0.15);
-    color: var(--red); border: 1px solid rgba(230,57,70,0.3); }
-  .badge-free { background: rgba(45,198,83,0.15); color: var(--green); border: 1px solid rgba(45,198,83,0.3);
-  }
-  .badge-android { background: rgba(45,198,83,0.15); color: var(--green); border: 1px solid rgba(45,198,83,0.3); }
-  .badge-ios { background: rgba(69,123,157,0.2); color: #7ab4d4;
-    border: 1px solid rgba(69,123,157,0.3); }
+  .rule:hover { transform: translateX(4px); background: #1b1b1b; }
+  .rule-tag { font-family: 'Press Start 2P', monospace; font-size: 7px; letter-spacing: 1px; }
+  .rule-base { border-left-color: var(--red); } .rule-base .rule-tag { color: var(--red); }
+  .rule-link { border-left-color: var(--yellow); } .rule-link .rule-tag { color: var(--yellow); }
+  .rule-opt { border-left-color: var(--blue); } .rule-opt .rule-tag { color: var(--blue); }
 
-  .steps { display: flex; flex-direction: column; }
-  .step { display: flex; gap: 20px;
-    padding-bottom: 28px; }
-  .step:last-child { padding-bottom: 0; }
-  .step-num-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
-  }
-  .step-num {
-    width: 36px; height: 36px;
-    background: var(--red);
-    color: #fff;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .step-line { flex: 1; width: 1px;
-    background: var(--border); margin-top: 8px; }
-  .step:last-child .step-line { display: none; }
-  .step-body { padding-top: 6px; flex: 1;
-  }
-  .step-body h4 { font-size: 10px; color: var(--text); margin: 0 0 8px; }
-  .step-body p { font-size: 13px;
-    margin: 0 0 6px; }
+  .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .checks { list-style: none; padding: 0; margin: 20px 0 28px; display: grid; gap: 12px; }
+  .checks li { padding-left: 28px; position: relative; color: var(--text); }
+  .checks li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .mock { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8); }
+  .mock-bar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .mock-bar span { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+  .mock-bar span:first-child { background: var(--red); }
+  .mock-body { padding: 22px; display: grid; gap: 18px; }
+  .mock-route { display: flex; justify-content: space-between; font-family: 'Press Start 2P', monospace; font-size: 10px; }
+  .mock-route em { font-style: normal; color: var(--green); border: 1px solid rgba(45, 198, 83, 0.4); padding: 3px 6px; font-size: 8px; }
+  .mock-pair { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; }
+  .mock-pair figure { margin: 0; display: grid; justify-items: center; gap: 4px; }
+  .mock-pair img { animation: bob 3s ease-in-out infinite; }
+  .mock-pair figure:last-child img { animation-delay: 1.5s; }
+  .mock-pair figcaption { font-size: 13px; font-weight: 700; }
+  .mock-link { font-family: 'Press Start 2P', monospace; color: var(--yellow); animation: beat 1.6s ease-in-out infinite; }
+  .mock-stats { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 14px; }
+  .mock-stats b { color: var(--text); font-family: 'Press Start 2P', monospace; font-size: 10px; margin-left: 6px; }
+  .mock-stats .red { color: var(--red); }
+  .hearts { color: var(--red); letter-spacing: 2px; }
+  .hearts i { font-style: normal; color: #333; }
 
-  @media (max-width: 600px) {
-    h1 { font-size: 18px;
-    }
-    .cards-grid { grid-template-columns: 1fr; }
+  .emus { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .emu { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+  .emu-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .emu h3 { font-family: 'Press Start 2P', monospace; font-size: 10px; margin: 0; color: var(--text); }
+  .pill { font-size: 10px; color: var(--yellow); border: 1px solid rgba(255, 214, 10, 0.3); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .emu-platform { margin: 0; font-size: 12px; color: var(--blue); }
+  .emu-note { margin: 0 0 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .emu-link { font-size: 13px; font-weight: 700; color: var(--text); text-decoration: none; margin-top: auto; }
+  .emu-link:hover { color: var(--yellow); }
+  .emu-link.muted { color: var(--muted); font-weight: 400; }
+  .hint { margin-top: 18px; color: var(--muted); font-size: 13px; }
+
+  .tips { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .tip { background: var(--panel); padding: 22px; transition: background 0.2s; }
+  .tip:hover { background: #1b1b1b; }
+  .tip h3 { font-size: 15px; margin: 0 0 6px; color: var(--text); }
+  .tip p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .final { margin-top: 96px; padding: 56px 24px; text-align: center; border: 1px solid var(--border); border-radius: 8px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 214, 10, 0.1), transparent 70%), var(--panel); display: grid; justify-items: center; gap: 22px; }
+  .final h2 { color: var(--text); margin: 0; }
+
+  .tilt { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s; }
+  .tilt:hover { border-color: #444; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes flow { from { stroke-dashoffset: 218; } to { stroke-dashoffset: 0; } }
+  @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } }
+
+  @media (max-width: 960px) {
+    .hero-inner, .showcase { grid-template-columns: 1fr; }
+    .duo { height: 280px; max-width: 460px; width: 100%; margin: 0 auto; }
+    .emus { grid-template-columns: repeat(2, 1fr); }
+    .tips { grid-template-columns: repeat(2, 1fr); }
+    .rules { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .hero-inner { padding-top: 48px; }
+    .steps, .rules, .tips { grid-template-columns: 1fr; }
+    .chain { top: 120px; }
   }
 </style>

@@ -99,7 +99,13 @@ export function Hearts({ value, max, color }: { value: number; max: number; colo
   return (
     <span className="inline-flex gap-1" aria-label={`${value} de ${max} vidas`}>
       {Array.from({ length: max }, (_, i) => (
-        <span key={i} aria-hidden="true" className="text-lg leading-none" style={{ color: i < value ? color : '#333' }}>
+        // Keying on the alive/lost state replays the animation when a heart changes.
+        <span
+          key={`${i}-${i < value}`}
+          aria-hidden="true"
+          className={`text-lg leading-none ${i >= value ? 'anim-heart' : ''}`}
+          style={{ color: i < value ? color : '#333' }}
+        >
           ♥
         </span>
       ))}
